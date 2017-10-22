@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import VotingList from "./VotingList";
 import VoteComposer from "./VoteComposer";
+import {fetchJson} from "../HTTPAdapter/Backend";
 
 class VotingController extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allVotes: props.allVotes,
+            allVotes: [],
             currentVoteId: '',
             isComposerActive: false
         };
@@ -82,10 +82,16 @@ class VotingController extends Component {
             allVotes: allVotes
         });
     }
-}
 
-VotingController.propTypes = {
-    allVotes: PropTypes.array
-};
+    componentDidMount(){
+        fetchJson('/api/votes').then(
+            allVotes => {
+                this.setState({
+                    allVotes
+                });
+            }
+        );
+    }
+}
 
 export default VotingController;
