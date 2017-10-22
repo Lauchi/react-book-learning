@@ -12,7 +12,6 @@ function emptyChoice() {
 function emptyVote() {
 
     return {
-        id: '',
         title: '',
         description: '',
         choices: []

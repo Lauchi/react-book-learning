@@ -50,8 +50,8 @@ class VotingController extends Component {
     }
 
     saveNewVote(vote) {
-        sendJson('post', '/api/votes', vote).
-        then(newVote => {
+        sendJson('post', '/api/votes', vote)
+            .then(newVote => {
             this.setState({
                 allVotes: [...this.state.allVotes, newVote]
             })

@@ -22,8 +22,9 @@ export function sendJson(method, path, body) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(response => response.json()).catch(exception =>
-        console.error('parsing failed during send', exception)
+    }).then(response => response.json())
+      .catch(exception =>
+            console.error('parsing failed during send', exception)
     );
 
 
