@@ -17,14 +17,12 @@ export function sendJson(method, path, body) {
 
     return fetch(url, {
         method: method,
-        body: body,
+        body: JSON.stringify(body),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(
-        response => response.json()
-    ) .catch(exception =>
+    }).then(response => response.json()).catch(exception =>
         console.error('parsing failed during send', exception)
     );
 

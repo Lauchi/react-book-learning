@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function emptyChoice() {
     return {
-        id: `vote_${Date.now()}`,
+        id: `choice_${Date.now()}`,
         title: '',
         count: 0
     }
@@ -12,7 +12,7 @@ function emptyChoice() {
 function emptyVote() {
 
     return {
-        id: `vote_${Date.now()}`,
+        id: '',
         title: '',
         description: '',
         choices: []
