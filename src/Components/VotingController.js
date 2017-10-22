@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import VotingList from "./VotingList";
 import VoteComposer from "./VoteComposer";
-import {fetchJson} from "../HTTPAdapter/Backend";
+import {fetchJson, sendJson} from "../HTTPAdapter/Backend";
 
 class VotingController extends Component {
     constructor(props) {
@@ -65,22 +65,17 @@ class VotingController extends Component {
     }
 
     registerChoice(choiceClicked, vote) {
-        let allVotes = this.state.allVotes.map((voteOfMap) => {
-            if (voteOfMap.id === vote.id) {
-                let choices = voteOfMap.choices;
-                choices.map((choice) => {
-                    if (choice.id === choiceClicked.id) {
-                        choice.count++;
-                    }
-                    return choice;
-                });
-            }
-            return voteOfMap;
-        });
+        sendJson('put', `/api/votes/${vote.id}/choices/${choiceClicked.id}/vote`, {})
+            .then(updatedVote => {
+                const newAllVotes =
+                    this.state.allVotes.map(
+                        vote => vote.id === updatedVote.id ? updatedVote : vote
+                    );
 
-        this.setState({
-            allVotes: allVotes
-        });
+                this.setState({
+                    allVotes: newAllVotes
+                });
+            });
     }
 
     componentDidMount(){
