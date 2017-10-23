@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import VotingList from "./VotingList";
-import VoteComposer from "./VoteComposer";
 import {fetchJson, sendJson} from "../HTTPAdapter/Backend";
+import Link from "react-router-dom/es/Link";
 
 class VotingController extends Component {
     constructor(props) {
@@ -14,13 +14,12 @@ class VotingController extends Component {
 
         this.registerChoice = this.registerChoice.bind(this);
         this.selectVote = this.selectVote.bind(this);
-        this.saveNewVote = this.saveNewVote.bind(this);
         this.activateVoteComposer = this.activateVoteComposer.bind(this);
         this.deactivateVoteComposer = this.deactivateVoteComposer.bind(this);
     }
 
     render() {
-        const { allVotes, currentVoteId, isComposerActive } = this.state;
+        const {allVotes, currentVoteId} = this.state;
         return (
             <div>
                 <VotingList onSelectVote={this.selectVote}
@@ -28,10 +27,15 @@ class VotingController extends Component {
                             onRegisterVote={this.registerChoice}
                             allVotes={allVotes}/>
                 <br/>
-                <VoteComposer active={isComposerActive}
-                              onSave={this.saveNewVote}
-                              onActivate={this.activateVoteComposer}
-                              onDeactivate={this.deactivateVoteComposer}/>
+                <Link to='/composeVote'>
+                    <div className="Row VotesRow Spacer">
+                        <h1 className="Title"><span className="Emphasis">What do <b>you</b> want to know ?</span>
+
+                            <div className="Badge">Add Voting</div>
+                        </h1>
+                        <p>Click here to leave your own question.</p>
+                    </div>
+                </Link>
             </div>
         )
     }
@@ -49,15 +53,8 @@ class VotingController extends Component {
         });
     }
 
-    async saveNewVote(vote) {
-        let newVote =  await sendJson('post', '/api/votes', vote);
-        this.setState({
-            allVotes: [...this.state.allVotes, newVote]
-        });
-    }
-
     selectVote(vote) {
-        const { isComposerActive } = this.state;
+        const {isComposerActive} = this.state;
 
         this.setState({
             currentVoteId: vote && !isComposerActive ? vote.id : null
@@ -76,7 +73,7 @@ class VotingController extends Component {
         });
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let allVotesDownloaded = await fetchJson('/api/votes');
         this.setState({
             allVotes: allVotesDownloaded
