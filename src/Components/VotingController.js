@@ -49,12 +49,10 @@ class VotingController extends Component {
         });
     }
 
-    saveNewVote(vote) {
-        sendJson('post', '/api/votes', vote)
-            .then(newVote => {
-            this.setState({
-                allVotes: [...this.state.allVotes, newVote]
-            })
+    async saveNewVote(vote) {
+        let newVote =  await sendJson('post', '/api/votes', vote);
+        this.setState({
+            allVotes: [...this.state.allVotes, newVote]
         });
     }
 
@@ -66,28 +64,23 @@ class VotingController extends Component {
         });
     }
 
-    registerChoice(choiceClicked, vote) {
-        sendJson('put', `/api/votes/${vote.id}/choices/${choiceClicked.id}/vote`, {})
-            .then(updatedVote => {
-                const newAllVotes =
-                    this.state.allVotes.map(
-                        vote => vote.id === updatedVote.id ? updatedVote : vote
-                    );
+    async registerChoice(choiceClicked, vote) {
+        let updatedVote = await sendJson('put', `/api/votes/${vote.id}/choices/${choiceClicked.id}/vote`, {});
+        const newAllVotes =
+            this.state.allVotes.map(
+                vote => vote.id === updatedVote.id ? updatedVote : vote
+            );
 
-                this.setState({
-                    allVotes: newAllVotes
-                });
-            });
+        this.setState({
+            allVotes: newAllVotes
+        });
     }
 
-    componentDidMount(){
-        fetchJson('/api/votes').then(
-            allVotes => {
-                this.setState({
-                    allVotes
-                });
-            }
-        );
+    async componentDidMount(){
+        let allVotesDownloaded = await fetchJson('/api/votes');
+        this.setState({
+            allVotes: allVotesDownloaded
+        });
     }
 }
 
