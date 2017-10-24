@@ -7,10 +7,14 @@ import Route from "react-router-dom/es/Route";
 import BrowserRouter from "react-router-dom/es/BrowserRouter";
 import VoteComposer from "./Components/VoteComposer";
 import SingleVotingController from "./Components/SingleVotingController";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 const router = <BrowserRouter>
     <div>
+        <Route exact path="/" render={() => (
+                <Redirect to="/home"/>
+        )}/>
         <Route path='/home' component={App} />
         <Route path='/composeVote' component={VoteComposer} />
         <Route path='/votes/:id' component={SingleVotingController} />

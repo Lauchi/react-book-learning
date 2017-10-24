@@ -81,8 +81,8 @@ export default class VoteComposer extends React.Component {
                                    onKeyPress={this.onChoiceSave}
                             />
                             <div className="ButtonBar">
-                                <Link to='/home' className="Button" onClick={this.save}>Save</Link>
-                                <Link to='/home' className="Button">Cancel</Link>
+                                <Link to='/' className="Button" onClick={this.save}>Save</Link>
+                                <Link to='/' className="Button">Cancel</Link>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ export default class SingleVotingController extends Component {
                                  vote={vote}
                                  onCloseVote={() => {}}
                                  onRegisterChoice={(choice) => {this.registerChoice(choice, vote)}}
-                                 bottomButtonNavigation={'/home'}
+                                 bottomButtonNavigation={'/'}
                 />
                 </div>
             </Layout>
