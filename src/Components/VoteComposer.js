@@ -11,7 +11,7 @@ function emptyChoice() {
     }
 }
 
-function emptyVote() {
+export function emptyVote() {
 
     return {
         title: '',

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import VotingList from "./VotingList";
-import {fetchJson, sendJson} from "../HTTPAdapter/Backend";
+import {fetchJson} from "../HTTPAdapter/Backend";
 import Link from "react-router-dom/es/Link";
 
 class VotingController extends Component {
@@ -11,11 +11,6 @@ class VotingController extends Component {
             currentVoteId: '',
             isComposerActive: false
         };
-
-        this.registerChoice = this.registerChoice.bind(this);
-        this.selectVote = this.selectVote.bind(this);
-        this.activateVoteComposer = this.activateVoteComposer.bind(this);
-        this.deactivateVoteComposer = this.deactivateVoteComposer.bind(this);
     }
 
     render() {
@@ -38,39 +33,6 @@ class VotingController extends Component {
                 </Link>
             </div>
         )
-    }
-
-    activateVoteComposer() {
-        this.setState({
-            currentVoteId: null,
-            isComposerActive: true
-        });
-    }
-
-    deactivateVoteComposer() {
-        this.setState({
-            isComposerActive: false
-        });
-    }
-
-    selectVote(vote) {
-        const {isComposerActive} = this.state;
-
-        this.setState({
-            currentVoteId: vote && !isComposerActive ? vote.id : null
-        });
-    }
-
-    async registerChoice(choiceClicked, vote) {
-        let updatedVote = await sendJson('put', `/api/votes/${vote.id}/choices/${choiceClicked.id}/vote`, {});
-        const newAllVotes =
-            this.state.allVotes.map(
-                vote => vote.id === updatedVote.id ? updatedVote : vote
-            );
-
-        this.setState({
-            allVotes: newAllVotes
-        });
     }
 
     async componentDidMount() {

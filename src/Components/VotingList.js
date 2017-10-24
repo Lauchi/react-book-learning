@@ -2,19 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import VotingComponent from "./VotingComponent";
 import VoteSummary from "./VoteSummary";
+import Link from "react-router-dom/es/Link";
 
-function VotingList ({ allVotes, currentVoteId, onSelectVote, onRegisterVote }) {
+function VotingList ({ allVotes, currentVoteId, onRegisterVote }) {
     return (
     <div>
         {allVotes.map((vote) => {
-            if (vote.id === currentVoteId) {
-                return <VotingComponent key={vote.id}
-                                        vote={vote}
-                                        onCloseVote={() => onSelectVote('')}
-                                        onRegisterChoice={(choice) => {onRegisterVote(choice, vote)}}
-                />
-            }
-            return <VoteSummary key={vote.id} vote={vote} onActivate={()=>{onSelectVote(vote)}}/>;
+            return <Link to={`/votes/${vote.id}`}>
+                <VoteSummary key={vote.id} vote={vote}/>
+            </Link>;
         })}
     </div>)
 }
@@ -22,7 +18,6 @@ function VotingList ({ allVotes, currentVoteId, onSelectVote, onRegisterVote }) 
 VotingList.propTypes = {
     allVotes: PropTypes.array,
     currentVoteId:  PropTypes.string,
-    onSelectVote:   PropTypes.func.isRequired,
     onRegisterVote: PropTypes.func.isRequired
 };
 
