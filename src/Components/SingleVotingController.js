@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {fetchJson, sendJson} from "../HTTPAdapter/Backend";
-import Link from "react-router-dom/es/Link";
 import VotingComponent from "./VotingComponent";
 import {emptyVote} from "./VoteComposer";
+import Layout from "./Layout";
 
 export default class SingleVotingController extends Component {
     constructor(props) {
@@ -17,11 +17,16 @@ export default class SingleVotingController extends Component {
     render() {
         const {vote} = this.state;
         return (
-            <VotingComponent key={vote.id}
-                             vote={vote}
-                             onCloseVote={() => {}}
-                             onRegisterChoice={(choice) => {this.registerChoice(choice, vote)}}
-            />
+            <Layout>
+                <div className="Body">
+                <VotingComponent key={vote.id}
+                                 vote={vote}
+                                 onCloseVote={() => {}}
+                                 onRegisterChoice={(choice) => {this.registerChoice(choice, vote)}}
+                                 bottomButtonNavigation={'/home'}
+                />
+                </div>
+            </Layout>
         )
     }
 

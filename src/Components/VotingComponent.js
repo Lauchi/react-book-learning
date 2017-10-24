@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ChoiceBar from "./ChoiceBar";
+import Link from "react-router-dom/es/Link";
 
-function VotingComponent ({ vote, onRegisterChoice, onCloseVote } ) {
+function VotingComponent ({ vote, onRegisterChoice, onCloseVote, bottomButtonNavigation } ) {
 
     const totalCount = vote.choices.reduce((previous, choice) => previous + choice.count, 0);
     return (
@@ -25,6 +26,7 @@ function VotingComponent ({ vote, onRegisterChoice, onCloseVote } ) {
                             title={choice.title} />})}
                 </div>
             </div>
+            <Link to={bottomButtonNavigation} className="Button">Cancel</Link>
         </div>
     )
 }
@@ -32,7 +34,8 @@ function VotingComponent ({ vote, onRegisterChoice, onCloseVote } ) {
 VotingComponent.propTypes = {
     vote: PropTypes.object,
     onRegisterChoice: PropTypes.func,
-    onCloseVote: PropTypes.func
+    onCloseVote: PropTypes.func,
+    bottomButtonNavigation: PropTypes.string.required
 };
 
 export default VotingComponent;
