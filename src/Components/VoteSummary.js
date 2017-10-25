@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function VoteSummary({ vote, onActivate }) {
+export default function VoteSummary({ vote }) {
   const totalVotes = vote.choices.reduce((prev, curr) => prev + curr.count, 0);
 
   return (
@@ -16,5 +16,5 @@ export default function VoteSummary({ vote, onActivate }) {
 }
 
 VoteSummary.propTypes = {
-  vote:       PropTypes.object.isRequired,
+  vote: PropTypes.object.isRequired,
 };

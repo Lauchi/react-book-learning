@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import VoteSummary from "./VoteSummary";
 import Link from "react-router-dom/es/Link";
 
-function VotingList ({ allVotes }) {
+export default function VotingList ({ allVotes }) {
     return (
     <div>
         {allVotes.map((vote) => {
@@ -17,5 +17,3 @@ function VotingList ({ allVotes }) {
 VotingList.propTypes = {
     allVotes: PropTypes.array,
 };
-
-export default VotingList;

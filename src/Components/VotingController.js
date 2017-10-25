@@ -3,24 +3,19 @@ import VotingList from "./VotingList";
 import {fetchJson} from "../HTTPAdapter/Backend";
 import Link from "react-router-dom/es/Link";
 
-class VotingController extends Component {
+export default class VotingController extends Component {
     constructor(props) {
         super(props);
         this.state = {
             allVotes: [],
-            currentVoteId: '',
-            isComposerActive: false
         };
     }
 
     render() {
-        const {allVotes, currentVoteId} = this.state;
+        const {allVotes} = this.state;
         return (
             <div>
-                <VotingList onSelectVote={this.selectVote}
-                            currentVoteId={currentVoteId}
-                            onRegisterVote={this.registerChoice}
-                            allVotes={allVotes}/>
+                <VotingList allVotes={allVotes}/>
                 <br/>
                 <Link to='/composeVote'>
                     <div className="Row VotesRow Spacer">
@@ -42,5 +37,3 @@ class VotingController extends Component {
         });
     }
 }
-
-export default VotingController;
